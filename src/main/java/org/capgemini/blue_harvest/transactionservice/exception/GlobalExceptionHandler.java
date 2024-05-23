@@ -9,13 +9,11 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
-	
-	@ExceptionHandler(Exception.class)
-    public ResponseEntity<String> handleUnknownException(Exception e) {
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(TransactionConstants.UNEXPECTED_ERROR_MESSAGE + e.getMessage());
-    }
 
-	
-	
-    
+	@ExceptionHandler(Exception.class)
+	public ResponseEntity<String> handleUnknownException(Exception e) {
+		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+				.body(TransactionConstants.UNEXPECTED_ERROR_MESSAGE + e.getMessage());
+	}
+
 }

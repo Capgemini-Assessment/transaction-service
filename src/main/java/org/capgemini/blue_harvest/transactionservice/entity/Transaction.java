@@ -1,4 +1,5 @@
 package org.capgemini.blue_harvest.transactionservice.entity;
+
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
@@ -6,15 +7,15 @@ import java.time.LocalDateTime;
 @Table(name = "transactions")
 public class Transaction {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-    private int accountId;
-    private double amount;
-    private String type;
-    private LocalDateTime transactionDate = LocalDateTime.now();
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
+	private int accountId;
+	private double amount;
+	private String type;
+	private LocalDateTime transactionDate = LocalDateTime.now();
 
-    public Transaction() {
+	public Transaction() {
 		super();
 	}
 
@@ -27,8 +28,7 @@ public class Transaction {
 		this.transactionDate = transactionDate;
 	}
 
-	
-    public String getType() {
+	public String getType() {
 		return type;
 	}
 
@@ -37,34 +37,34 @@ public class Transaction {
 	}
 
 	public int getId() {
-        return id;
-    }
+		return id;
+	}
 
-    public void setId(int id) {
-        this.id = id;
-    }
+	public void setId(int id) {
+		this.id = id;
+	}
 
-    public int getAccountId() {
-        return accountId;
-    }
+	public int getAccountId() {
+		return accountId;
+	}
 
-    public void setAccountId(int accountId) {
-        this.accountId = accountId;
-    }
+	public void setAccountId(int accountId) {
+		this.accountId = accountId;
+	}
 
-    public double getAmount() {
-        return amount;
-    }
+	public double getAmount() {
+		return amount;
+	}
 
-    public void setAmount(double amount) {
-        this.amount = amount;
-    }
+	public void setAmount(double amount) {
+		this.amount = amount;
+	}
 
-    public LocalDateTime getTransactionDate() {
-        return transactionDate;
-    }
+	public LocalDateTime getTransactionDate() {
+		return transactionDate;
+	}
 
-    public void setTransactionDate(LocalDateTime transactionDate) {
-        this.transactionDate = transactionDate;
-    }
+	public void setTransactionDate(LocalDateTime transactionDate) {
+		this.transactionDate = transactionDate;
+	}
 }

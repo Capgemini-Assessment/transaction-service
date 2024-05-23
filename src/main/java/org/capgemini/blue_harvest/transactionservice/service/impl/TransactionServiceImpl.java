@@ -17,26 +17,26 @@ import org.springframework.stereotype.Service;
 @Service
 public class TransactionServiceImpl implements TransactionService {
 
-    private static final Logger logger = LoggerFactory.getLogger(TransactionServiceImpl.class);
+	private static final Logger logger = LoggerFactory.getLogger(TransactionServiceImpl.class);
 
-    @Autowired
-    TransactionDAO dao;
+	@Autowired
+	TransactionDAO dao;
 
-    @Override
-    public Transaction createTransaction(TransactionRequest transactionRequest) {
-    	logger.info(TransactionConstants.TRANSACTION_CREATE_REQUEST_MESSAGE);
-        TransactionMapper mapper = new TransactionMapper();
-        return mapper.mapToModel(dao.createTransaction(mapper.mapToTransaction(transactionRequest)));
-    }
+	@Override
+	public Transaction createTransaction(TransactionRequest transactionRequest) {
+		logger.info(TransactionConstants.TRANSACTION_FETCH_REQUEST_MESSAGE, transactionRequest.getAccountId());
+		TransactionMapper mapper = new TransactionMapper();
+		return mapper.mapToModel(dao.createTransaction(mapper.mapToTransaction(transactionRequest)));
+	}
 
-    @Override
-    public List<Transaction> getTransactionByAccountId(int accountId) {
-        logger.info(TransactionConstants.TRANSACTION_FETCH_REQUEST_MESSAGE+ accountId);
-        TransactionMapper mapper = new TransactionMapper();
-        List<Transaction> transactionList = new ArrayList<>();
-        dao.getTransactionsByAccountId(accountId).forEach(transaction -> {
-            transactionList.add(mapper.mapToModel(transaction));
-        });
-        return transactionList;
-    }
+	@Override
+	public List<Transaction> getTransactionByAccountId(int accountId) {
+		logger.info(TransactionConstants.TRANSACTION_FETCH_REQUEST_MESSAGE , accountId);
+		TransactionMapper mapper = new TransactionMapper();
+		List<Transaction> transactionList = new ArrayList<>();
+		dao.getTransactionsByAccountId(accountId).forEach(transaction -> {
+			transactionList.add(mapper.mapToModel(transaction));
+		});
+		return transactionList;
+	}
 }
