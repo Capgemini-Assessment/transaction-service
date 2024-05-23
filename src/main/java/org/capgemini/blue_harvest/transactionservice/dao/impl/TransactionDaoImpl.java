@@ -12,38 +12,37 @@ import org.springframework.stereotype.Component;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
 @Component
 public class TransactionDaoImpl implements TransactionDAO {
 
-    private static final Logger logger = LoggerFactory.getLogger(TransactionDaoImpl.class);
+	private static final Logger logger = LoggerFactory.getLogger(TransactionDaoImpl.class);
 
-    @Autowired
-    private TransactionRepository repository;
+	@Autowired
+	private TransactionRepository repository;
 
-    @Override
-    public Transaction createTransaction(Transaction transaction) {
-        try {
-            logger.info(TransactionConstants.TRANSACTION_CREATION_STARTED, transaction);
-            Transaction createdTransaction = repository.save(transaction);
-            logger.info(TransactionConstants.TRANSACTION_CREATION_SUCCESSFUL, createdTransaction);
-            return createdTransaction;
-        } catch (Exception e) {
-            logger.error(TransactionConstants.TRANSACTION_CREATION_FAILED, transaction, e);
-            throw e;
-        }
-    }
+	@Override
+	public Transaction createTransaction(Transaction transaction) {
+		try {
+			logger.info(TransactionConstants.TRANSACTION_CREATION_STARTED, new Object[] { transaction.getAccountId(), transaction.getAmount()});
+			Transaction createdTransaction = repository.save(transaction);
+			logger.info(TransactionConstants.TRANSACTION_CREATION_SUCCESSFUL, createdTransaction.getAccountId());
+			return createdTransaction;
+		} catch (Exception e) {
+			logger.error(TransactionConstants.TRANSACTION_CREATION_FAILED, transaction, e);
+			throw e;
+		}
+	}
 
-    @Override
-    public List<Transaction> getTransactionsByAccountId(int accountId) {
-        try {
-            logger.info(TransactionConstants.TRANSACTION_FETCH_STARTED, accountId);
-            List<Transaction> transactions = repository.findByAccountId(accountId);
-            logger.info(TransactionConstants.TRANSACTION_FETCH_SUCCESSFUL, transactions.size(), accountId);
-            return transactions;
-        } catch (Exception e) {
-            logger.error(TransactionConstants.TRANSACTION_FETCH_FAILED, accountId, e);
-            throw e;
-        }
-    }
+	@Override
+	public List<Transaction> getTransactionsByAccountId(int accountId) {
+		try {
+			logger.info(TransactionConstants.TRANSACTION_FETCH_STARTED, accountId);
+			List<Transaction> transactions = repository.findByAccountId(accountId);
+			logger.info(TransactionConstants.TRANSACTION_FETCH_SUCCESSFUL, transactions.size(), accountId);
+			return transactions;
+		} catch (Exception e) {
+			logger.error(TransactionConstants.TRANSACTION_FETCH_FAILED, accountId, e);
+			throw e;
+		}
+	}
 }
